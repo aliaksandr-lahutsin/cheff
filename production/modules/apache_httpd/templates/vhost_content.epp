@@ -1,0 +1,4 @@
+<VirtualHost *:80>
+        ServerName <%= $name_site %>
+        DocumentRoot /var/www/<%= $name_site %>
+</VirtualHost>

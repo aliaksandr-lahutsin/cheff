@@ -1,0 +1,4 @@
+class uptoyou {
+  $my_array = ['sdfsfsdfsdf']
+  $my_array.each |$my_value| { notice($my_value) }  
+}

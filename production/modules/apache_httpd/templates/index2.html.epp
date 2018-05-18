@@ -1,0 +1,3 @@
+<html><h1>Hello Puppet!</h1> This is <font color='blue'><%= $name %></font> server running on <h1><%= $name %></h1> Hello world!  I'm here!!!!!<html>
+
+

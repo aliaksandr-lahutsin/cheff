@@ -1,0 +1,49 @@
+import requests
+from requests.auth import HTTPBasicAuth
+import json
+
+auth_json = {
+    "jsonrpc": "2.0",
+    "method": "user.login",
+    "params": {
+        "user": "Admin",
+        "password": "zabbix"
+    },
+    "id": 0,
+    "auth": None
+}
+
+r = requests.post("http://192.168.56.57/zabbix/api_jsonrpc.php", headers = {'content-type': 'application/json'}, data = json.dumps(auth_json), auth = HTTPBasicAuth("Admin", "zabbix"))
+result_auth = r.json()["result"]
+print(r.status_code, r.reason)
+print(r.text[:300] + '...')
+
+host_add = {
+"jsonrpc": "2.0",
+"method": "host.create",
+"params": {
+"host": "super_host",
+"templates": [{
+"templateid": "10001"
+}],
+"interfaces": [{
+"type": 1,
+"main": 1,
+"useip": 1,
+"ip": "192.168.56.58",
+"dns": "",
+"port": "10050"
+}],
+"groups": [
+{"groupid": "1"},
+{"groupid": "2"}
+]
+},
+"auth": result_auth,
+"id": 1
+}
+
+
+r = requests.post("http://192.168.56.57/zabbix/api_jsonrpc.php", headers = {'content-type': 'application/json'}, data = json.dumps(host_add), auth = HTTPBasicAuth("Admin", "zabbix"))
+print(r.status_code, r.reason)
+print(r.text[:300] + '...')
